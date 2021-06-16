@@ -1,0 +1,47 @@
+﻿<body>
+<ion-header>
+
+    <ion-navbar color="orange">
+        <ion-title>Browse</ion-title>
+        <ion-buttons end>
+        <button ion-button icon-only (click)="presentPopover($event)">
+          <ion-icon name="menu"></ion-icon>
+        </button>
+        </ion-buttons>
+    </ion-navbar>
+
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+              <ion-searchbar (ionInput)="filterItems($event)">
+              </ion-searchbar>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-header>
+
+
+<ion-content padding>
+ <ion-grid>
+  <ion-row text-center>
+    <ion-col *ngFor="let post of posts | async">
+      <ion-card style="min-width: 300px; max-width: 375px" class="fade-in"  (click)="openListing(post)">
+                <div *ngFor="let image of post.images; index as i" [attr.data-index]="i">
+                  <div *ngIf="i === 0">
+                <img style="min-width: 300px; max-height: 200px" src={{image}}/>
+              </div>
+            </div>
+        <ion-card-content text-left>
+          <ion-card-title>
+            {{post.title}}
+          </ion-card-title>
+            <p><strong>{{post.size}}</strong></p>
+            <p>{{getPrice(post.price)}}</p>
+            <img src="assets/imgs/star_rating.png" style="max-width: 100px;">
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+</body>
